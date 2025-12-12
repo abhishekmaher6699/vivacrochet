@@ -65,24 +65,24 @@ const LineItem = ({
           <p className="text-sm text-gray-600">Price: {rupee(product.price)}</p>
         </div>
 
-        <div className="flex items-center justify-between mt-2">
+        <div className="flex items-center md:h-8 h-7 justify-between mt-2">
           <div className="flex items-center gap-1 border-2 border-black rounded-none">
             <Button
               type="button"
               onClick={() => onRemove(product.id)}
-              className="md:h-8 md:w-8 h-5 w-5 bg-transparent border-none text-black text-xl hover:bg-pink-400 rounded-none"
+              className="md:h-8 md:w-8 h-7 w-5 bg-transparent border-none text-black text-xl hover:bg-pink-400 rounded-none"
             >
               −
             </Button>
 
-            <span className="md:w-6 md:h-5  text-center font-semibold">
+            <span className="md:w-6 md:h-5 h-6 text-center font-semibold">
               {quantity}
             </span>
 
             <Button
               type="button"
               onClick={() => onAdd(product.id)}
-              className="md:h-8 md:w-8 h-5 w-5 bg-transparent border-none text-black text-xl hover:bg-pink-400 rounded-none"
+              className="md:h-8 md:w-8 h-7 w-5 bg-transparent border-none text-black text-xl hover:bg-pink-400 rounded-none"
             >
               +
             </Button>
@@ -101,11 +101,11 @@ const LineItem = ({
 };
 
 export default function CheckoutClient({ products }: CheckoutClientProps) {
-  const router = useRouter();
-  const { cart, add, remove, clear } = useCart();
-  const [processing, setProcessing] = useState(false);
+    const router = useRouter();
+    const { cart, add, remove, clear } = useCart();
+    const [processing, setProcessing] = useState(false);
 
-  const { lines, total } = useMemo(() => {
+    const { lines, total } = useMemo(() => {
     const linesAcc: { product: Product; quantity: number }[] = [];
     let totalAcc = 0;
 
