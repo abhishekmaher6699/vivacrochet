@@ -5,10 +5,12 @@ import { format } from "date-fns";
 import { OrderStatus } from "@/lib/generated/prisma/client";
 import prisma from "@/lib/db";
 import { requireAuth } from "@/lib/auth-utils";
+import Link from "next/link";
 
 const rupee = (paise: number) => `₹${(paise / 100).toFixed(2)}`;
 const FALLBACK_IMG = "https://images.pexels.com/photos/19090/pexels-photo.jpg";
-const CARD_SHADOW = "4px 4px 0 0 rgba(0,0,0,0.9), inset 2px 2px 0 rgba(0,0,0,0.06)";
+const CARD_SHADOW =
+  "4px 4px 0 0 rgba(0,0,0,0.9), inset 2px 2px 0 rgba(0,0,0,0.06)";
 const SUMMARY_SHADOW = "2px 2px 0 0 rgba(0,0,0,0.9)";
 
 type Params = {
@@ -63,6 +65,15 @@ export default async function OrderPage({ params }: Params) {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="mb-6">
+        <div className="mb-4">
+          <Link
+            href="/history"
+            className="inline-block px-4 py-2 border-2 border-black bg-white font-semibold text-sm rounded-none 
+            hover:-translate-y-0.5 hover:translate-x-0.5 active:translate-y-0 transition-transform hover:bg-pink-400 hover:text-white"
+          >
+            ←  Back to Orders
+          </Link>
+        </div>
         <h1 className="text-2xl font-bold">Order Confirmed</h1>
         <p className="text-sm text-gray-600 mt-1">
           Order ID: <span className="font-mono">{order.id}</span>
@@ -76,7 +87,9 @@ export default async function OrderPage({ params }: Params) {
           {order.items.map((item) => {
             const product = item.product;
             const img =
-              product?.images && product.images.length > 0 ? product.images[0] : FALLBACK_IMG;
+              product?.images && product.images.length > 0
+                ? product.images[0]
+                : FALLBACK_IMG;
 
             return (
               <div
@@ -91,19 +104,27 @@ export default async function OrderPage({ params }: Params) {
                   loading="lazy"
                 />
                 <div className="flex-1">
-                  <h3 className="font-semibold">{product?.title ?? "Product"}</h3>
+                  <h3 className="font-semibold">
+                    {product?.title ?? "Product"}
+                  </h3>
                   <p className="text-sm text-gray-600 mb-2">
-                    Unit price: <span className="font-semibold">{rupee(item.unitPrice)}</span>
+                    Unit price:{" "}
+                    <span className="font-semibold">
+                      {rupee(item.unitPrice)}
+                    </span>
                   </p>
 
                   <div className="flex items-center justify-between">
                     <div className="text-sm">
-                      Quantity: <span className="font-semibold">{item.quantity}</span>
+                      Quantity:{" "}
+                      <span className="font-semibold">{item.quantity}</span>
                     </div>
 
                     <div className="text-right">
                       <div className="text-xs text-gray-500">Subtotal</div>
-                      <div className="font-semibold">{rupee(item.unitPrice * item.quantity)}</div>
+                      <div className="font-semibold">
+                        {rupee(item.unitPrice * item.quantity)}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -152,7 +173,9 @@ export default async function OrderPage({ params }: Params) {
 
             <div className="text-sm text-gray-600">
               <div>Customer</div>
-              <div className="font-semibold">{order.user?.name ?? order.user?.email ?? "—"}</div>
+              <div className="font-semibold">
+                {order.user?.name ?? order.user?.email ?? "—"}
+              </div>
             </div>
           </div>
         </aside>

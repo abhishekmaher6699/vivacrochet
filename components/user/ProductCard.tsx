@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import type { ProductValues } from "../admin/ProductForm";
+import { useCart } from "@/hooks/cart-context";
 
 const AddToCartButton = dynamic(() => import("./AddToCartBtn"), { ssr: false });
 
@@ -25,6 +26,23 @@ const ProductItem = React.memo(function ProductItem({
 }) {
   const img = product.images && product.images.length > 0 ? product.images[0] : FALLBACK_IMG;
   const outOfStock = product.stock <= 0;
+
+  const { add, getQty } = useCart();
+
+  const handleBuyNow = useCallback(() => {
+    console.log("In side handle buy")
+    try {
+      const qty = getQty(product.id);
+      console.log(qty)
+      if (qty === 0 && !outOfStock) {
+        add(product.id);
+      }
+    } catch (e) {
+      console.error("Cart add failed", e);
+    }
+
+    onBuyNow(product);
+  }, [product, getQty, add, onBuyNow, outOfStock]);
 
   return (
     <article
@@ -77,7 +95,7 @@ const ProductItem = React.memo(function ProductItem({
 
           <Button
             disabled={outOfStock}
-            onClick={() => onBuyNow(product)}
+            onClick={handleBuyNow}
             variant="outline"
             className="flex-1 py-2 px-3 rounded-none text-sm font-semibold border-2 border-black bg-white hover:translate-x-0.5 hover:-translate-y-0.5 active:translate-y-0 transition-transform disabled:opacity-60 disabled:cursor-not-allowed"
             style={{ boxShadow: "2px 2px 0 0 rgba(0,0,0,0.9)" }}
