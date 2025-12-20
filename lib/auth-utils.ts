@@ -8,7 +8,7 @@ import { authClient } from "./auth-client";
 import { toast } from "sonner";
 
 
-const authSession = async () => {
+export const authSession = async () => {
   const session = auth.api.getSession({ headers: await headers() });
   return session;
 };

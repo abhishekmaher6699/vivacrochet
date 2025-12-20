@@ -52,11 +52,11 @@ export default function SignInForm() {
         {
           email: data.email,
           password: data.password,
-          callbackURL: "/",
+          // callbackURL: "/",
         },
         {
           onSuccess: () => {
-            router.push("/");
+            // router.push("/");
             toast.error("Signed in successfully!");
 
           },

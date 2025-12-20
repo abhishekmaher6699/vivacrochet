@@ -64,7 +64,7 @@ export default function SignUpForm() {
         },
         {
           onSuccess: () => {
-            router.push("/sign-in");
+            // router.push("/sign-in");
             toast.error("Signed up successfully!");
           },
           onError: (ctx) => {
