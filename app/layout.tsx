@@ -5,6 +5,8 @@ import { Toaster } from "sonner";
 import { Providers } from "./providers";
 import { authSession } from "@/lib/auth-utils";
 
+
+
 const dmSans = DM_Sans({
   subsets: ['latin']
 }) 
@@ -22,6 +24,7 @@ export default async function RootLayout({
 
   const session = await authSession()
   const userId = session?.user.id
+
   return (
     <html lang="en">
       <body
