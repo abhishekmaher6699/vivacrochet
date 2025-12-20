@@ -56,7 +56,7 @@ const ProductItem = React.memo(function ProductItem({
         className="rounded-none overflow-hidden mb-2 shrink-0 cursor-pointer"
         style={{ boxShadow: IMG_SHADOW }}
       >
-        <img src={img} alt={product.title} className="w-full md:h-50 object-cover block" loading="lazy" />
+        <img src={img} alt={product.title} className="w-full h-50 object-contain block" loading="lazy" />
       </div>
 
       <div className="flex-1">

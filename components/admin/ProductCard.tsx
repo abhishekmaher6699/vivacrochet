@@ -159,7 +159,7 @@ const AdminProductItem = React.memo(function AdminProductItem({
         <img
           src={img}
           alt={product.title}
-          className="w-full md:h-50 object-cover block"
+          className="w-full h-50 object-contain block"
           loading="lazy"
         />
       </div>
