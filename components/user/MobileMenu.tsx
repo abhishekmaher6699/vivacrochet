@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
+import React, {useTransition} from "react";
 import { ScrollArea } from "../ui/scroll-area";
 import { Button } from "../ui/button";
 import { authClient } from "@/lib/auth-client";
@@ -21,11 +21,17 @@ interface Props {
 
 const MobileMenu: React.FC<Props> = ({ items }) => {
 
-  const handleSignout = async () => {
-    await signout();
-    toast.success("Logged out successfully");
-  };
+  const [isPending, startTransition] = useTransition();
 
+  const router = useRouter();
+  const handleSignout = () => {
+    startTransition(async () => {
+      console.log("signout clicked");
+      await signout();
+      router.replace("/sign-in");
+      router.refresh();
+    });
+  };
   return (
     <aside
       className="fixed border rounded-b-lg flex md:hidden left-0 top-20 w-full md:w-64 bg-white z-30 flex-col"
@@ -56,7 +62,9 @@ const MobileMenu: React.FC<Props> = ({ items }) => {
           confirmLabel="Logout"
           destructive
           onConfirm={handleSignout}
-          trigger={<Button className="w-full rounded-b-lg py-8 px-3 bg-pink-400 text-white text-lg hover:bg-pink-600">Logout</Button>}
+          trigger={<Button className="w-full rounded-b-lg py-8 px-3 bg-pink-400 text-white text-lg hover:bg-pink-600">
+            {isPending ? "Logging out..." : "Log out"}
+          </Button>}
         />
       </div>
     </aside>

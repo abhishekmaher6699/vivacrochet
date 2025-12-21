@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
+import React, { useTransition } from "react";
 import { ScrollArea } from "../ui/scroll-area";
 import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { signout } from "@/app/actions/authActions";
 import { ConfirmDialog } from "../confirmPopup";
+import { useRouter } from "next/navigation";
 
 interface NavBarItem {
   href: string;
@@ -18,10 +19,16 @@ interface Props {
 }
 
 const SideBar: React.FC<Props> = ({ items }) => {
+  const [isPending, startTransition] = useTransition();
 
-  const handleSignout = async () => {
-    await signout();
-    toast.success("Logged out successfully");
+  const router = useRouter();
+  const handleSignout = () => {
+    startTransition(async () => {
+      console.log("signout clicked");
+      await signout();
+      router.replace("/admin/sign-in");
+      router.refresh();
+    });
   };
 
   return (
@@ -54,7 +61,11 @@ const SideBar: React.FC<Props> = ({ items }) => {
           confirmLabel="Logout"
           destructive
           onConfirm={handleSignout}
-          trigger={<Button className="w-full py-8 px-3 bg-pink-400 text-white text-lg rounded-none hover:bg-pink-600">Logout</Button>}
+          trigger={
+            <Button className="w-full py-8 px-3 bg-pink-400 text-white text-lg rounded-none hover:bg-pink-600">
+              {isPending ? "Logging out.." : "Log out"}
+            </Button>
+          }
         />
       </div>
     </aside>
