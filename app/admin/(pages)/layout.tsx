@@ -1,7 +1,7 @@
 import React, { ReactNode } from "react";
 import NavBar from "@/components/admin/NavBar";
 import SideBar from "@/components/admin/app-sidebar";
-
+import { Toaster } from "sonner";
 const items = [
   { href: "/admin/products", children: "Manage Products" },
   { href: "/admin/stats", children: "Stats" },
@@ -10,6 +10,7 @@ const items = [
 const AdminLayout = ({ children }: { children: ReactNode }) => {
   return (
     <>
+
       <header className="fixed top-0 left-0 right-0 h-16 z-40">
         <NavBar />
       </header>
@@ -21,6 +22,8 @@ const AdminLayout = ({ children }: { children: ReactNode }) => {
           {children}
         </main>
       </div>
+      <Toaster richColors position="top-right" />
+
     </>
   );
 };

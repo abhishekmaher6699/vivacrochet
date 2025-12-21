@@ -54,7 +54,7 @@ const LineItem = ({
           alt={product.title}
           fill
           unoptimized
-          className="object-cover rounded-none border-2 border-black"
+          className="object-contain rounded-none border-2 border-black"
           sizes="96px"
         />
       </div>

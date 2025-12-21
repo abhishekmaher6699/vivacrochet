@@ -56,8 +56,8 @@ export default function SignInForm() {
         },
         {
           onSuccess: () => {
+            toast.success("Signed in successfully!");
             router.push("/admin/products");
-            toast.error("Signed in successfully!");
           },
           onError: (ctx) => {
             toast.error(ctx.error.message);

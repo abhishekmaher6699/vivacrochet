@@ -31,7 +31,7 @@ const OrderRow = React.memo(function OrderRow({ order }: { order: OrderWithItems
         <img
           src={firstImage}
           alt={`Order ${order.id}`}
-          className="w-16 h-16 md:w-20 md:h-20 object-cover border-2 border-black flex-shrink-0"
+          className="w-16 h-16 md:w-20 md:h-20 object-contain border-2 border-black flex-shrink-0"
           loading="lazy"
         />
 

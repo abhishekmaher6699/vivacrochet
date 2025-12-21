@@ -1,31 +1,63 @@
 import prisma from "@/lib/db";
 import { requireAdminAuth } from "@/lib/auth-utils";
 import { format } from "date-fns";
+import { unstable_cache } from "next/cache";
 
 const rupee = (paise: number) => `₹${(paise / 100).toFixed(2)}`;
+
+
+export const getAdminOrdersData = unstable_cache(
+  async () => {
+    console.log("db called")
+    const [orders, stats] = await Promise.all([
+      prisma.order.findMany({
+        orderBy: { createdAt: "desc" },
+        take: 20,
+        select: {
+          id: true,
+          totalAmount: true,
+          status: true,
+          createdAt: true,
+          user: { select: { name: true, email: true } },
+          items: { select: { quantity: true } },
+        },
+      }),
+      prisma.order.groupBy({
+        by: ["status"],
+        _count: { _all: true },
+        _sum: { totalAmount: true },
+      }),
+    ]);
+
+    return { orders, stats };
+  },
+  ["admin-orders-page"],     // cache key
+  { revalidate: 30 }         // seconds (adjust as needed)
+);
 
 export default async function AdminOrdersPage() {
   await requireAdminAuth();
 
-  const [orders, stats] = await Promise.all([
-    prisma.order.findMany({
-      orderBy: { createdAt: "desc" },
-      take: 20,
-      select: {
-        id: true,
-        totalAmount: true,
-        status: true,
-        createdAt: true,
-        user: { select: { name: true, email: true } },
-        items: { select: { quantity: true } },
-      },
-    }),
-    prisma.order.groupBy({
-      by: ["status"],
-      _count: { _all: true },
-      _sum: { totalAmount: true },
-    }),
-  ]);
+  const { orders, stats } = await getAdminOrdersData();
+  // const [orders, stats] = await Promise.all([
+  //   prisma.order.findMany({
+  //     orderBy: { createdAt: "desc" },
+  //     take: 20,
+  //     select: {
+  //       id: true,
+  //       totalAmount: true,
+  //       status: true,
+  //       createdAt: true,
+  //       user: { select: { name: true, email: true } },
+  //       items: { select: { quantity: true } },
+  //     },
+  //   }),
+  //   prisma.order.groupBy({
+  //     by: ["status"],
+  //     _count: { _all: true },
+  //     _sum: { totalAmount: true },
+  //   }),
+  // ]);
 
   let totalOrders = 0;
   let totalRevenue = 0;

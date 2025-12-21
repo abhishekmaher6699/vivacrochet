@@ -100,7 +100,7 @@ export default async function OrderPage({ params }: Params) {
                 <img
                   src={img}
                   alt={product?.title ?? "Product"}
-                  className="w-20 h-20 object-cover border-2 border-black"
+                  className="w-20 h-20 object-contain border-2 border-black"
                   loading="lazy"
                 />
                 <div className="flex-1">

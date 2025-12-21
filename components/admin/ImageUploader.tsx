@@ -63,7 +63,7 @@ export const ImageUploader = ({
               <Image
                 src={img}
                 fill
-                className="object-cover"
+                className="object-contain"
                 alt={`image-${index}`}
               />
 
