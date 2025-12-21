@@ -10,7 +10,7 @@ export const signout = async () => {
       fetchOptions: {
         onSuccess: () => {
           toast.success("Logged out successfully")
-          // redirect("/sign-in"); 
+          // redirect("/sign-in")
         },
       },
     });
