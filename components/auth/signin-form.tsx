@@ -52,7 +52,7 @@ export default function SignInForm() {
         {
           email: data.email,
           password: data.password,
-          // callbackURL: "/sign-in",
+          callbackURL: "/products",
         },
         {
           onSuccess: () => {
