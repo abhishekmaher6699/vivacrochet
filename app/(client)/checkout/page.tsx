@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import { getProductsList } from "@/lib/products";
 import { LoadingScreen } from "@/components/LoadingScreen"
 
-const CheckoutClient = dynamic(() => import("@/components/user/CheckoutClient"), { suspense: true });
+const CheckoutClient = dynamic(() => import("@/components/user/CheckoutClient"));
 
 export default async function CheckoutPage() {
   const products = await getProductsList();
