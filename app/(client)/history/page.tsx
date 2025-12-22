@@ -5,7 +5,7 @@ import prisma from "@/lib/db";
 import { requireAuth } from "@/lib/auth-utils";
 import { LoadingScreen } from "@/components/LoadingScreen"
 
-const OrdersHistory = dynamic(() => import("@/components/user/OrdersHistory"), { suspense: true });
+const OrdersHistory = dynamic(() => import("@/components/user/OrdersHistory"));
 
 
 export default async function OrdersPage() {

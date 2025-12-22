@@ -7,7 +7,7 @@ import { getProductsList } from "@/lib/products";
 import { requireAuth } from "@/lib/auth-utils";
 import { LoadingScreen } from "@/components/LoadingScreen"
 
-const UserProductCard = dynamic(() => import("@/components/user/ProductCard"), { suspense: true });
+const UserProductCard = dynamic(() => import("@/components/user/ProductCard"));
 
 export default async function ProductsPage() {
   await requireAuth();
