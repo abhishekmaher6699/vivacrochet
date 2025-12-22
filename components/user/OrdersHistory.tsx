@@ -31,7 +31,7 @@ const OrderRow = React.memo(function OrderRow({ order }: { order: OrderWithItems
         <img
           src={firstImage}
           alt={`Order ${order.id}`}
-          className="w-16 h-16 md:w-20 md:h-20 object-contain border-2 border-black flex-shrink-0"
+          className="w-16 h-16 md:w-20 md:h-20 object-contain border-2 border-black"
           loading="lazy"
         />
 
@@ -84,7 +84,7 @@ const OrderRow = React.memo(function OrderRow({ order }: { order: OrderWithItems
 });
 OrderRow.displayName = "OrderRow";
 
-export default function OrdersHistory({ orders }: { orders: OrderWithItems[] }) {
+export default function OrdersHistory({ orders }: { orders: any }) {
   const rows = useMemo(() => (orders || []).map((o) => <OrderRow key={o.id} order={o} />), [orders]);
 
   if (!orders || orders.length === 0) {

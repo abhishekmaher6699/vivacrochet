@@ -15,13 +15,13 @@ const CARD_SHADOW = "4px 4px 0 0 rgba(0,0,0,0.9), -4px -4px 0 0 rgba(255,255,255
 const IMG_SHADOW = "4px 4px 0 0 rgba(0,0,0,0.9), inset 2px 2px 0 rgba(255,255,255,0.6)";
 const FALLBACK_IMG = "https://images.pexels.com/photos/19090/pexels-photo.jpg";
 
-type Props = { products: ProductValues[] };
+type Props = { products: any };
 
 const ProductItem = React.memo(function ProductItem({
   product,
   onBuyNow,
 }: {
-  product: ProductValues;
+  product: any;
   onBuyNow: (p: ProductValues) => void;
 }) {
   const img = product.images && product.images.length > 0 ? product.images[0] : FALLBACK_IMG;
