@@ -60,11 +60,11 @@ export default function SignUpForm() {
           name: data.email,
           email: data.email,
           password: data.password,
-          callbackURL: "/sign-up",
+          callbackURL: "/sign-in",
         },
         {
           onSuccess: () => {
-            router.push("/sign-in");
+            // router.push("/sign-in");
             toast.success("Signed up successfully!");
           },
           onError: (ctx) => {
